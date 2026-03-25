@@ -29,7 +29,7 @@ Manages the fundraising phase with advanced vesting logic.
 *   **Vesting (Linear Drop)**:
     *   **Cliff Period**: An initial period where no tokens can be claimed.
     *   **Linear Release**: Tokens are released proportionally based on time passed after the cliff until the full duration (e.g., 6 months).
-*   **Security**: Prevents double-claiming and handles native currency (ETH/BNB) safely.
+*   **Security**: Prevents double-claiming and handles native currency (ETH/BNB) safely using `ReentrancyGuard`.
 
 ### C. VaultXStaking.sol
 The core engine for user retention and rewards.
@@ -45,7 +45,7 @@ The core engine for user retention and rewards.
 
 ## 3. Frontend Architecture (React) ⚛️
 
-### methodology: BEM + SCSS Modules
+### Methodology: BEM + SCSS Modules
 Components are styled using nested SCSS to ensure clean JSX and isolated CSS scopes.
 *   **Block**: `.presale`
 *   **Element**: `.presale-header`
@@ -86,47 +86,47 @@ npx hardhat ignition deploy ./ignition/modules/Staking.ts --network ganache
 
 ---
 
-## 6. Fluxogramas de Procesos (Visual Study Guide) 📊
+## 6. Process Logic Flows 📊
 
-### A. Ciclo de Vida del Inversor (Preventa)
+### A. Investor Lifecycle (Presale)
 ```mermaid
 graph TD
-    A[Inicia Preventa] --> B{¿Es Ronda 1 o 2?}
-    B -- Sí --> C[Validar Whitelist Merkle Proof]
-    B -- No --> D[Público Libre]
-    C --> E[Compra VLTX con ETH/BNB]
+    A[Presale Starts] --> B{Is Round 1 or 2?}
+    B -- Yes --> C[Validate Whitelist Merkle Proof]
+    B -- No --> D[Public Open Entry]
+    C --> E[Buy VLTX with ETH/BNB]
     D --> E
-    E --> F[Tokens bloqueados en Vesting]
-    F --> G{¿Pasó el Cliff?}
-    G -- No --> H[Saldo Claimable: 0]
-    G -- Sí --> I[Liberación Lineal segundo a segundo]
-    I --> J[Usuario reclama tokens disponibles]
+    E --> F[Tokens locked in Vesting]
+    F --> G{Cliff passed?}
+    G -- No --> H[Claimable Balance: 0]
+    G -- Yes --> I[Linear release second by second]
+    I --> J[User claims matured tokens]
 ```
 
-### B. Ciclo de Vida del Staking (Recompensas)
+### B. Staking Lifecycle (Rewards)
 ```mermaid
 graph TD
-    A[Posee VLTX] --> B[Escoger Tier: 30, 90 o 180 días]
-    B --> C[Bloquear tokens en Contrato]
-    C --> D[Cálculo de recompensas por Cada Bloque]
-    D --> E{¿Retirar ahora?}
-    E -- Sólo Ganancias --> F[Botón Claim: Rewards enviadas / Principal sigue bloqueado]
-    E -- Todo el Dinero --> G{¿Pasó la fecha de Fin?}
-    G -- Sí --> H[Botón Unstake: Recibe Principal + Ganancias]
-    G -- No --> I[Botón Unstake: Penalidad 10% a Tesorería / Recibe neto]
+    A[Owns VLTX] --> B[Choose Tier: 30, 90 or 180 days]
+    B --> C[Lock tokens in Contract]
+    C --> D[Collect rewards Per Block]
+    D --> E{Withdraw now?}
+    E -- Only Rewards --> F[Claim Button: Rewards sent / Principal stays locked]
+    E -- All Funds --> G{Lock duration passed?}
+    G -- Yes --> H[Unstake Button: Receives Principal + Rewards]
+    G -- No --> I[Unstake Button: 10% Treasury Penalty / Receives Net]
 ```
 
 ---
 
-## 7. Glosario Técnico (Términos que debes conocer) 📖
+## 7. Technical Glossary 📖
 
-*   **Vesting**: Periodo de tiempo en el que los tokens están "bloqueados" y se entregan poco a poco para proteger la salud económica del proyecto.
-*   **Cliff**: Tiempo de espera inicial antes de que el Vesting empiece a entregar tokens. Durante el Cliff, el saldo es 0.
-*   **Merkle Tree/Proof**: Estructura de datos criptográfica que permite validar si alguien está en una lista blanca sin guardar toda la lista en la blockchain.
-*   **Staking**: El acto de bloquear tus criptomonedas para recibir recompensas intereses a cambio de no moverlas.
-*   **Reentrancy**: Un tipo de ataque donde un hacker intenta llamar a una función de contrato muchas veces antes de que se termine la primera llamada. Nosotros usamos `ReentrancyGuard` para evitarlo.
-*   **Multiplicador**: Un factor (como 1.5x o 2.0x) que aumenta tus ganancias proporcionalmente al tiempo que te comprometes a no retirar.
-*   **WAD / precision**: Usar 18 decimales en las matemáticas del contrato para evitar errores de redondeo.
+*   **Vesting**: Period during which tokens are locked and released gradually to ensure project economic stability.
+*   **Cliff**: Initial delay before the Vesting begins releasing tokens. During this time, the claimable balance is 0.
+*   **Merkle Tree/Proof**: A cryptographic data structure allowing to validate if an address is in a whitelist without storing the entire list on-chain.
+*   **Staking**: Locking cryptocurrencies in a smart contract to receive interest/rewards.
+*   **Reentrancy**: A common attack where a hacker tries to call a contract function multiple times before the first one finishes. We use `ReentrancyGuard` to prevent this.
+*   **Multiplier**: A factor (e.g., 1.5x, 2.0x) that increases rewards proportionally to the length of the lock-in period.
+*   **WAD / precision**: Mathematical scaling (usually 18 decimals) to prevent rounding errors.
 
 ---
-**VaultX - Guía de Estudio Rápida**
+**VaultX Technical Assessment Guide**

@@ -2,8 +2,12 @@
 
 Welcome to the **VaultX** project repository. This is a full-stack Web3 application designed for a token presale and a staking rewards ecosystem.
 
-## 📖 Technical Documentation
-If you are reviewing this as part of a **Technical Test**, please refer to the detailed **[DOCUMENTATION.md](./DOCUMENTATION.md)** file. It contains:
+## 📖 Technical Documentation / Documentación Técnica
+If you are reviewing this as part of a **Technical Test**, please refer to the detailed documentation files:
+- **[English Version (DOCUMENTATION.md)](./DOCUMENTATION.md)**
+- **[Versión en Español (DOCUMENTACION_ES.md)](./DOCUMENTACION_ES.md)**
+
+It contains:
 - Smart Contract logic and security.
 - Frontend architecture (BEM + SCSS Modules).
 - Deployment instructions and script usage.
