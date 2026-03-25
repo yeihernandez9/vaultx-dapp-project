@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Card, CardContent, Typography, Box, Button, CircularProgress, Divider } from '@mui/material';
 import { usePresale } from '../../hooks/usePresale';
+import styles from './VestingPanel.module.scss';
 
 export default function VestingPanel() {
   const { userAllocation, userClaimed, userVested, claimTokens, loading } = usePresale();
@@ -24,13 +25,13 @@ export default function VestingPanel() {
   if (loading) return <CircularProgress color="secondary" />;
 
   return (
-    <Card elevation={10} sx={{ mt: 4, bgcolor: 'rgba(123, 31, 162, 0.05)', border: '1px solid rgba(123, 31, 162, 0.2)' }}>
-      <CardContent sx={{ p: 4 }}>
+    <Card elevation={10} className={styles['vesting-card']}>
+      <CardContent className={styles['vesting-content']}>
         <Typography variant="h5" color="primary.light" gutterBottom>
           Your Vesting Schedule
         </Typography>
 
-        <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 3, my: 3 }}>
+        <div className={styles['vesting-grid']}>
           <Box>
             <Typography variant="body2" color="text.secondary">Total Allocated</Typography>
             <Typography variant="h6" color="text.primary">{parseFloat(userAllocation).toFixed(2)} VLTX</Typography>
@@ -47,9 +48,9 @@ export default function VestingPanel() {
             <Typography variant="body2" color="text.secondary">Available to Claim</Typography>
             <Typography variant="h6" color="secondary.main">{claimable > 0 ? claimable.toFixed(2) : '0.00'} VLTX</Typography>
           </Box>
-        </Box>
+        </div>
 
-        <Divider sx={{ my: 3, borderColor: 'rgba(255,255,255,0.05)' }} />
+        <Divider className={styles['vesting-divider']} />
 
         <Button 
           variant="outlined" 
@@ -57,7 +58,7 @@ export default function VestingPanel() {
           fullWidth
           disabled={claiming || claimable <= 0}
           onClick={handleClaim}
-          sx={{ py: 1 }}
+          className={styles['vesting-button']}
         >
           {claiming ? 'Processing...' : 'Claim Unlocked Tokens'}
         </Button>

@@ -1,0 +1,32 @@
+@use "../../styles/utils" as u;
+
+.vesting {
+  &-card {
+    margin-top: u.pixelToRem(32px) !important;
+    background-color: rgba(123, 31, 162, 0.05) !important;
+    border: 1px solid rgba(123, 31, 162, 0.2) !important;
+  }
+
+  &-content {
+    padding: u.pixelToRem(32px) !important;
+  }
+
+  &-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: u.pixelToRem(24px);
+    margin-top: u.pixelToRem(24px);
+    margin-bottom: u.pixelToRem(24px);
+  }
+
+  &-divider {
+    margin-top: u.pixelToRem(24px) !important;
+    margin-bottom: u.pixelToRem(24px) !important;
+    border-color: rgba(255, 255, 255, 0.05) !important;
+  }
+
+  &-button {
+    padding-top: u.pixelToRem(8px) !important;
+    padding-bottom: u.pixelToRem(8px) !important;
+  }
+}

@@ -1,6 +1,6 @@
-export const PRESALE_ADDRESS = "0x04729D2Aca46502d415DD3744186Da89560c5f6e";
-export const TOKEN_ADDRESS = "0x5F2756D38c20a2B84D6F6Cd03424f90188a9d93b";
-export const STAKING_ADDRESS = "0x5212aC21cC4f74f976081CDA60ab49DbC8AB0974";
+export const PRESALE_ADDRESS = import.meta.env.VITE_PRESALE_ADDRESS || "";
+export const TOKEN_ADDRESS = import.meta.env.VITE_TOKEN_ADDRESS || "";
+export const STAKING_ADDRESS = import.meta.env.VITE_STAKING_ADDRESS || "";
 
 export const PRESALE_ABI = [
   "function currentRound() view returns (uint8)",

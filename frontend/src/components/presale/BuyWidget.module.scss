@@ -1,0 +1,56 @@
+@use "../../styles/utils" as u;
+
+.buy-widget {
+  &-content {
+    padding: u.pixelToRem(32px) !important;
+  }
+
+  &-alert {
+    margin-bottom: u.pixelToRem(16px) !important;
+  }
+
+  &-progress {
+    height: u.pixelToRem(12px);
+    border-radius: u.pixelToRem(6px);
+    margin-bottom: u.pixelToRem(8px);
+    background-color: rgba(255, 255, 255, 0.1) !important;
+  }
+
+  &-text {
+    display: block;
+    text-align: right;
+    margin-bottom: u.pixelToRem(32px);
+  }
+
+  &-toggle {
+    margin-bottom: u.pixelToRem(24px);
+  }
+
+  &-input {
+    margin-bottom: u.pixelToRem(16px) !important;
+  }
+
+  &-estimation {
+    padding: u.pixelToRem(16px);
+    margin-bottom: u.pixelToRem(24px);
+    background-color: #121212; /* background.default */
+    border-radius: u.pixelToRem(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  &-wallet {
+    display: block;
+    margin-bottom: u.pixelToRem(8px);
+    text-align: center;
+  }
+
+  &-button {
+    padding-top: u.pixelToRem(12px) !important;
+    padding-bottom: u.pixelToRem(12px) !important;
+    font-size: u.pixelToRem(17.6px) !important;
+    
+    &--gradient {
+      background: linear-gradient(45deg, #7b1fa2 30%, #00b0d7 90%) !important;
+    }
+  }
+}

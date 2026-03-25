@@ -3,7 +3,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { theme } from './theme';
 import Navbar from './components/common/Navbar';
 import PresaleContainer from './containers/pre-sale';
-import './index.css';
+import './index.scss';
+import styles from './App.module.scss';
 
 import StakeContainer from './containers/stake';
 
@@ -13,11 +14,11 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <BrowserRouter>
-        <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+        <Box className={styles.app}>
           <Navbar />
           
           {/* Main Content Area */}
-          <Box sx={{ flexGrow: 1, mt: 8 }}>
+          <Box className={styles['app-main']}>
             <Routes>
               <Route path="/" element={<PresaleContainer />} />
               <Route path="/stake" element={<StakeContainer />} />

@@ -3,6 +3,7 @@ import { Card, CardContent, Typography, Box, Button, TextField, ToggleButtonGrou
 import LockClockIcon from '@mui/icons-material/LockClock';
 import { useStaking } from '../../hooks/useStaking';
 import { useWeb3React } from '../../hooks/useWeb3React';
+import styles from './TierSelector.module.scss';
 
 export default function TierSelector() {
   const { vltxBalance, stake } = useStaking();
@@ -42,8 +43,8 @@ export default function TierSelector() {
 
   return (
     <Card elevation={10}>
-      <CardContent sx={{ p: 4 }}>
-        <Typography variant="h5" color="secondary" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+      <CardContent className={styles['tier-selector-content']}>
+        <Typography variant="h5" color="secondary" gutterBottom className={styles['tier-selector-title']}>
           <LockClockIcon /> Lock Tokens
         </Typography>
         <Typography variant="body2" color="text.secondary" paragraph>
@@ -57,14 +58,14 @@ export default function TierSelector() {
           exclusive
           onChange={(_, val) => val && setTier(val)}
           fullWidth
-          sx={{ mb: 3 }}
+          className={styles['tier-selector-toggle']}
         >
           <ToggleButton value={30}>30 Days (1x)</ToggleButton>
           <ToggleButton value={90}>90 Days (1.5x)</ToggleButton>
           <ToggleButton value={180}>180 Days (2x)</ToggleButton>
         </ToggleButtonGroup>
 
-        <Box sx={{ mb: 3 }}>
+        <Box className={styles['tier-selector-input']}>
           <TextField
             label="Amount to Stake (VLTX)"
             type="number"
@@ -79,13 +80,13 @@ export default function TierSelector() {
           </Typography>
         </Box>
 
-        <Box sx={{ p: 2, mb: 3, bgcolor: 'background.default', borderRadius: 2, border: '1px solid rgba(255,255,255,0.1)' }}>
+        <Box className={styles['tier-selector-multiplier']}>
           <Typography variant="body2" color="text.secondary">Estimated Current APY Multiplier:</Typography>
           <Typography variant="h4" color="secondary.main">{getMultiplier()} Rewards</Typography>
         </Box>
 
-        {error && <Alert severity="error" sx={{ mb: 3 }}>{error}</Alert>}
-        {success && <Alert severity="success" sx={{ mb: 3 }}>{success}</Alert>}
+        {error && <Alert severity="error" className={styles['tier-selector-alert']}>{error}</Alert>}
+        {success && <Alert severity="success" className={styles['tier-selector-alert']}>{success}</Alert>}
 
         {!active ? (
           <Button 
@@ -93,7 +94,7 @@ export default function TierSelector() {
             size="large" 
             fullWidth 
             onClick={activate}
-            sx={{ py: 1.5, background: 'linear-gradient(45deg, #7b1fa2, #00b0d7)' }}
+            className={styles['tier-selector-button']}
           >
             Connect Wallet
           </Button>
@@ -104,7 +105,7 @@ export default function TierSelector() {
             fullWidth 
             onClick={handleStake}
             disabled={loading || parsedAmount <= 0}
-            sx={{ py: 1.5, background: 'linear-gradient(45deg, #7b1fa2, #00b0d7)' }}
+            className={styles['tier-selector-button']}
           >
             {loading ? 'Approving & Staking...' : 'Stake VLTX'}
           </Button>

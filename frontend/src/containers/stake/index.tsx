@@ -1,13 +1,14 @@
 import { Container, Box, Typography } from '@mui/material';
 import TierSelector from '../../components/stake/TierSelector';
 import PositionsTable from '../../components/stake/PositionsTable';
+import styles from './Stake.module.scss';
 
 export default function StakeContainer() {
   return (
-    <Container maxWidth="lg" sx={{ pt: 10, pb: 10 }}>
+    <Container maxWidth="lg" className={styles.stake}>
       {/* Header title only */}
-      <Box sx={{ mb: 6 }}>
-        <Typography variant="h3" gutterBottom>
+      <Box className={styles['stake-header']}>
+        <Typography variant="h3">
           VaultX Staking Rewards
         </Typography>
         <Typography variant="h6" color="text.secondary">
@@ -16,13 +17,7 @@ export default function StakeContainer() {
       </Box>
 
       {/* Main layout using CSS Grid */}
-      <Box
-        sx={{
-          display: 'grid',
-          gridTemplateColumns: { xs: '1fr', md: '5fr 7fr' },
-          gap: 6,
-        }}
-      >
+      <Box className={styles['stake-layout']}>
         {/* Left Side: Staking selector */}
         <Box>
           <TierSelector />

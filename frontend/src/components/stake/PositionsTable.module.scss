@@ -1,0 +1,45 @@
+@use "../../styles/utils" as u;
+
+.positions {
+  &-empty {
+    background-color: rgba(255, 255, 255, 0.02) !important;
+    text-align: center;
+    padding: u.pixelToRem(32px) !important;
+    border-radius: u.pixelToRem(16px) !important;
+  }
+
+  &-table {
+    overflow: hidden;
+
+    &-header {
+      padding: u.pixelToRem(24px) !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    &-head {
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+
+    &-row {
+      &:last-child td,
+      &:last-child th {
+        border: 0;
+      }
+    }
+
+    &-amount {
+      font-weight: 600 !important;
+    }
+
+    &-reward {
+      font-weight: 600 !important;
+      color: #4dd0e1 !important;
+    }
+
+    &-actions {
+      display: flex;
+      gap: u.pixelToRem(8px);
+      justify-content: flex-end;
+    }
+  }
+}

@@ -1,38 +1,29 @@
-import { Container, Box, Typography, Chip } from '@mui/material';
-import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import { Container, Box, Typography } from '@mui/material';
 import BuyWidget from '../../components/presale/BuyWidget';
 import VestingPanel from '../../components/presale/VestingPanel';
 import { useWeb3React } from '../../hooks/useWeb3React';
+import styles from './Presale.module.scss';
 
 export default function PresaleContainer() {
   const { active } = useWeb3React();
 
   return (
-    <Container maxWidth="lg" sx={{ pt: 10, pb: 10 }}>
+    <Container maxWidth="lg" className={styles.presale}>
       {/* Header title only */}
-      <Box sx={{ mb: 6 }}>
-        <Typography variant="h3" gutterBottom>
+      <Box className={styles['presale-header']}>
+        <Typography variant="h3">
           VaultX Presale Phase
         </Typography>
         <Typography variant="h6" color="text.secondary">
           Secure your allocation early with dynamic vesting schedules.
         </Typography>
-      </Box>      {/* Main layout using CSS Grid */}
-      <Box
-        sx={{
-          display: 'grid',
-          gridTemplateColumns: { xs: '1fr', md: '7fr 5fr' },
-          gap: 6,
-        }}
-      >
+      </Box>      
+
+      {/* Main layout using CSS Grid */}
+      <Box className={styles['presale-layout']}>
         {/* Left Side */}
         <Box>
-          <Box
-            sx={{
-              bgcolor: 'rgba(0, 229, 255, 0.05)', p: 4, borderRadius: 4,
-              border: '1px solid rgba(0, 229, 255, 0.2)', mb: 4,
-            }}
-          >
+          <Box className={styles['presale-info']}>
             <Typography variant="h5" color="secondary" gutterBottom>
               Why VaultX?
             </Typography>
@@ -47,7 +38,7 @@ export default function PresaleContainer() {
           {active ? (
             <VestingPanel />
           ) : (
-            <Box sx={{ p: 4, bgcolor: 'rgba(255,255,255,0.02)', borderRadius: 4, textAlign: 'center' }}>
+            <Box className={styles['presale-prompt']}>
               <Typography color="text.secondary">
                 Please connect your wallet to view your vesting schedule.
               </Typography>

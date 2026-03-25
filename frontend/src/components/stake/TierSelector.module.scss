@@ -1,0 +1,39 @@
+@use "../../styles/utils" as u;
+
+.tier-selector {
+  &-content {
+    padding: u.pixelToRem(32px) !important;
+  }
+
+  &-title {
+    display: flex;
+    align-items: center;
+    gap: u.pixelToRem(8px);
+  }
+
+  &-toggle {
+    margin-bottom: u.pixelToRem(24px) !important;
+  }
+
+  &-input {
+    margin-bottom: u.pixelToRem(24px);
+  }
+
+  &-multiplier {
+    padding: u.pixelToRem(16px);
+    margin-bottom: u.pixelToRem(24px);
+    background-color: #121212; /* background.default */
+    border-radius: u.pixelToRem(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  &-alert {
+    margin-bottom: u.pixelToRem(24px) !important;
+  }
+
+  &-button {
+    padding-top: u.pixelToRem(12px) !important;
+    padding-bottom: u.pixelToRem(12px) !important;
+    background: linear-gradient(45deg, #7b1fa2, #00b0d7) !important;
+  }
+}

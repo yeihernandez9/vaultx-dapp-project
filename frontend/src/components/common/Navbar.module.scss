@@ -1,0 +1,73 @@
+@use "../../styles/utils" as u;
+
+.navbar {
+  background: rgba(10, 10, 15, 0.8) !important;
+  backdrop-filter: blur(12px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+
+  &-logo {
+    background: linear-gradient(45deg, #00b0d7, #7b1fa2) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    letter-spacing: u.pixelToRem(1px) !important;
+    font-weight: 800 !important;
+  }
+
+  &-link {
+    color: #b0b8c4 !important;
+    font-size: u.pixelToRem(16px) !important;
+    font-weight: 500 !important;
+    text-transform: none !important;
+    position: relative !important;
+    background: transparent !important;
+
+    &:hover {
+      color: white !important;
+      background: transparent !important;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: linear-gradient(90deg, #00b0d7, #7b1fa2);
+      transition: width 0.3s ease;
+    }
+
+    &.active {
+      color: white !important;
+      font-weight: 700 !important;
+
+      &::after {
+        width: 100%;
+      }
+    }
+  }
+
+  &-wallet {
+    padding: u.pixelToRem(20px) u.pixelToRem(16px) !important;
+    font-size: u.pixelToRem(16px) !important;
+    border-radius: u.pixelToRem(16px) !important;
+    font-weight: 600 !important;
+    transition: background-color 0.2s !important;
+
+    &.inactive {
+      background-color: rgba(255, 255, 255, 0.1) !important;
+      
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.2) !important;
+      }
+    }
+
+    &.activeWallet {
+      background-color: #51156a !important;
+      
+      &:hover {
+        background-color: #d32f2f !important;
+      }
+    }
+  }
+}

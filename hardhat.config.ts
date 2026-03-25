@@ -1,5 +1,8 @@
 import hardhatToolboxViemPlugin from "@nomicfoundation/hardhat-toolbox-viem";
 import { configVariable, defineConfig } from "hardhat/config";
+import * as dotenv from "dotenv";
+
+dotenv.config();
 
 export default defineConfig({
   plugins: [hardhatToolboxViemPlugin],
@@ -41,7 +44,7 @@ export default defineConfig({
     ganache: {
       type: "http",
       chainType: "l1",
-      url: "http://127.0.0.1:7545",
+      url: process.env.GANACHE_URL || "http://127.0.0.1:7545",
       chainId: 1337,
     },
   },

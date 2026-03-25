@@ -3,10 +3,10 @@ import { Card, CardContent, Typography, Box, TextField, Button, LinearProgress, 
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import { usePresale } from '../../hooks/usePresale';
 import { useWeb3React } from '../../hooks/useWeb3React';
+import styles from './BuyWidget.module.scss';
 
-// Changed to 1000 tokens for testing visualization.
-// Change back to desired tokenomics cap before production.
-const HARDCAP = 1000;
+// Hardcap read from .env (defaults to 10M if not set)
+const HARDCAP = Number(import.meta.env.VITE_HARDCAP) || 10000000;
 
 export default function BuyWidget() {
   const { currentRound, tokenPrice, totalRaised, buyTokens, loading } = usePresale();
@@ -26,10 +26,10 @@ export default function BuyWidget() {
 
   const getRoundBadge = () => {
     switch (currentRound) {
-      case 1: return <Alert severity="info" sx={{ mb: 2 }}>🔥 Pre-Seed Round is ACTIVE 🔥</Alert>;
-      case 2: return <Alert severity="warning" sx={{ mb: 2 }}>⚡ Seed Round is ACTIVE ⚡</Alert>;
-      case 3: return <Alert severity="success" sx={{ mb: 2 }}>🚀 Public Round is ACTIVE 🚀</Alert>;
-      default: return <Alert severity="error" sx={{ mb: 2 }}>⏸ Presale is PAUSED ⏸</Alert>;
+      case 1: return <Alert severity="info" className={styles['buy-widget-alert']}>🔥 Pre-Seed Round is ACTIVE 🔥</Alert>;
+      case 2: return <Alert severity="warning" className={styles['buy-widget-alert']}>⚡ Seed Round is ACTIVE ⚡</Alert>;
+      case 3: return <Alert severity="success" className={styles['buy-widget-alert']}>🚀 Public Round is ACTIVE 🚀</Alert>;
+      default: return <Alert severity="error" className={styles['buy-widget-alert']}>⏸ Presale is PAUSED ⏸</Alert>;
     }
   };
 
@@ -52,7 +52,7 @@ export default function BuyWidget() {
 
   return (
     <Card elevation={10}>
-      <CardContent sx={{ p: 4 }}>
+      <CardContent className={styles['buy-widget-content']}>
         {getRoundBadge()}
 
         {/* Hardcap Progress */}
@@ -62,10 +62,10 @@ export default function BuyWidget() {
         <LinearProgress
           variant="determinate"
           value={raisedPercent}
-          sx={{ height: 12, borderRadius: 6, mb: 1, backgroundColor: 'rgba(255,255,255,0.1)' }}
+          className={styles['buy-widget-progress']}
           color="secondary"
         />
-        <Typography variant="caption" color="text.secondary" sx={{ display: 'block', textAlign: 'right', mb: 4 }}>
+        <Typography variant="caption" color="text.secondary" className={styles['buy-widget-text']}>
           {totalRaised} / {HARDCAP.toLocaleString()} VLTX
         </Typography>
 
@@ -76,7 +76,7 @@ export default function BuyWidget() {
           exclusive
           onChange={(_, val) => val && setCurrency(val)}
           fullWidth
-          sx={{ mb: 3 }}
+          className={styles['buy-widget-toggle']}
         >
           <ToggleButton value="ETH">Ethereum (ETH)</ToggleButton>
           <ToggleButton value="BNB">Binance (BNB)</ToggleButton>
@@ -90,12 +90,12 @@ export default function BuyWidget() {
           variant="outlined"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
-          sx={{ mb: 2 }}
+          className={styles['buy-widget-input']}
           slotProps={{ htmlInput: { step: '0.01', min: '0' } }}
         />
 
         {/* Estimation box */}
-        <Box sx={{ p: 2, mb: 3, bgcolor: 'background.default', borderRadius: 2, border: '1px solid rgba(255,255,255,0.1)' }}>
+        <Box className={styles['buy-widget-estimation']}>
           <Typography variant="body2" color="text.secondary">You will receive approx:</Typography>
           <Typography variant="h4" color="secondary.main">{estimatedTokens} VLTX</Typography>
           <Typography variant="caption" color="text.secondary">
@@ -103,12 +103,12 @@ export default function BuyWidget() {
           </Typography>
         </Box>
 
-        {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
-        {success && <Alert severity="success" sx={{ mb: 2 }}>{success}</Alert>}
+        {error && <Alert severity="error" className={styles['buy-widget-alert']}>{error}</Alert>}
+        {success && <Alert severity="success" className={styles['buy-widget-alert']}>{success}</Alert>}
 
         {/* Wallet status info */}
         {active && (
-          <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 1, textAlign: 'center' }}>
+          <Typography variant="caption" color="text.secondary" className={styles['buy-widget-wallet']}>
             Connected: {account?.slice(0, 8)}...{account?.slice(-6)}
           </Typography>
         )}
@@ -121,10 +121,7 @@ export default function BuyWidget() {
             fullWidth
             onClick={activate}
             startIcon={<AccountBalanceWalletIcon />}
-            sx={{
-              py: 1.5, fontSize: '1.1rem',
-              background: 'linear-gradient(45deg, #7b1fa2 30%, #00b0d7 90%)',
-            }}
+            className={`${styles['buy-widget-button']} ${styles['buy-widget-button--gradient']}`}
           >
             Connect Wallet to Buy
           </Button>
@@ -135,10 +132,7 @@ export default function BuyWidget() {
             fullWidth
             onClick={handleBuy}
             disabled={loading || pending || currentRound === 0}
-            sx={{
-              py: 1.5, fontSize: '1.1rem',
-              background: currentRound === 0 ? undefined : 'linear-gradient(45deg, #7b1fa2 30%, #00b0d7 90%)',
-            }}
+            className={`${styles['buy-widget-button']} ${currentRound !== 0 ? styles['buy-widget-button--gradient'] : ''}`}
           >
             {pending ? 'Processing TX...' : 'Buy VaultX Tokens'}
           </Button>

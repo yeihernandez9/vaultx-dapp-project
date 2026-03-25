@@ -1,0 +1,4 @@
+// Global utility functions
+@function pixelToRem($pxValue) {
+  @return ($pxValue / 16px) * 1rem;
+}

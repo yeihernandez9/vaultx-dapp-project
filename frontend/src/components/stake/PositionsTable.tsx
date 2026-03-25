@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Card, CardContent, Typography, Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button, Chip } from '@mui/material';
+import { Card, Typography, Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button, Chip } from '@mui/material';
 import { useStaking } from '../../hooks/useStaking';
+import styles from './PositionsTable.module.scss';
 
 export default function PositionsTable() {
   const { positions, claimRewards, unstake } = useStaking();
@@ -35,20 +36,20 @@ export default function PositionsTable() {
 
   if (activePositions.length === 0) {
     return (
-      <Card elevation={5} sx={{ bgcolor: 'rgba(255,255,255,0.02)', textAlign: 'center', p: 4, borderRadius: 4 }}>
+      <Card elevation={5} className={styles['positions-empty']}>
         <Typography color="text.secondary">No active staking positions found.</Typography>
       </Card>
     );
   }
 
   return (
-    <Card elevation={10} sx={{ overflow: 'hidden' }}>
-      <Typography variant="h6" color="secondary" sx={{ p: 3, borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+    <Card elevation={10} className={styles['positions-table']}>
+      <Typography variant="h6" color="secondary" className={styles['positions-table-header']}>
         Your Active Positions
       </Typography>
       <TableContainer>
         <Table sx={{ minWidth: 650 }}>
-          <TableHead sx={{ bgcolor: 'rgba(0,0,0,0.2)' }}>
+          <TableHead className={styles['positions-table-head']}>
             <TableRow>
               <TableCell>Amount (VLTX)</TableCell>
               <TableCell>Multiplier</TableCell>
@@ -66,9 +67,9 @@ export default function PositionsTable() {
               const multiplierText = (parseInt(pos.multiplier) / 100).toFixed(1) + 'x';
               
               return (
-                <TableRow key={pos.positionId} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                <TableRow key={pos.positionId} className={styles['positions-table-row']}>
                   <TableCell component="th" scope="row">
-                    <Typography fontWeight={600}>{parseFloat(pos.amount).toFixed(2)}</Typography>
+                    <Typography className={styles['positions-table-amount']}>{parseFloat(pos.amount).toFixed(2)}</Typography>
                   </TableCell>
                   <TableCell>
                     <Chip label={multiplierText} size="small" color="secondary" variant="outlined" />
@@ -81,12 +82,12 @@ export default function PositionsTable() {
                     )}
                   </TableCell>
                   <TableCell>
-                    <Typography fontWeight={600} color="primary.light">
+                    <Typography className={styles['positions-table-reward']}>
                       +{parseFloat(pos.pendingReward).toFixed(2)}
                     </Typography>
                   </TableCell>
                   <TableCell align="right">
-                    <Box sx={{ display: 'flex', gap: 1, justifyContent: 'flex-end' }}>
+                    <Box className={styles['positions-table-actions']}>
                       <Button 
                         size="small" 
                         variant="outlined" 

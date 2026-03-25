@@ -1,0 +1,23 @@
+@use "../../styles/utils" as u;
+
+.stake {
+  padding-top: u.pixelToRem(80px);
+  padding-bottom: u.pixelToRem(80px);
+
+  &-header {
+    margin-bottom: u.pixelToRem(48px);
+    
+    h3 {
+      margin-bottom: u.pixelToRem(8px);
+    }
+  }
+
+  &-layout {
+    display: grid;
+    gap: u.pixelToRem(48px);
+
+    @media (min-width: 900px) {
+      grid-template-columns: 5fr 7fr;
+    }
+  }
+}
