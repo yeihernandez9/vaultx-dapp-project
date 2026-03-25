@@ -70,6 +70,30 @@ npx hardhat ignition deploy ./ignition/modules/Presale.ts --network ganache
 npx hardhat ignition deploy ./ignition/modules/Staking.ts --network ganache
 ```
 
+---
+
+### 🌐 Desplegando en Redes Públicas (Sepolia, BSC, etc.)
+
+Para desplegar estos contratos en una testnet o mainnet pública:
+
+1.  **Configura el `.env` raíz**:
+    Añade tu clave privada y la URL del RPC:
+    ```env
+    SEPOLIA_RPC_URL=https://eth-sepolia.g.alchemy.com/v2/TU_API_KEY
+    SEPOLIA_PRIVATE_KEY=0xTU_LLAVE_PRIVADA
+    ```
+
+2.  **Ejecuta el comando de despliegue**:
+    ```bash
+    npx hardhat ignition deploy ./ignition/modules/Presale.ts --network sepolia
+    npx hardhat ignition deploy ./ignition/modules/Staking.ts --network sepolia
+    ```
+
+3.  **Actualiza el Frontend**:
+    Copia las nuevas direcciones que arroje la terminal y pégalas en las variables `VITE_` de tu `.env` para que el React se conecte a la red correcta.
+
+---
+
 ### Scripts de Ayuda
 *   **`distribute-tokens.ts`**: Alimenta el contrato de Staking con tokens de recompensa y proporciona VLTX a las cuentas de prueba.
 *   **`activate-round.ts`**: Control de administrador para alternar entre las rondas Pre-Seed, Seed y Pública.

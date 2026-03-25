@@ -42,6 +42,34 @@ cd frontend
 npm run dev
 ```
 
+---
+
+## 🌐 Deploying to Public Networks (Sepolia, BSC, etc.)
+
+To deploy these contracts to a public testnet or mainnet, follow these steps:
+
+1. **Update Root `.env`**:
+   Add your network-specific variables:
+   ```env
+   # Example for Sepolia
+   SEPOLIA_RPC_URL=https://eth-sepolia.g.alchemy.com/v2/YOUR_API_KEY
+   SEPOLIA_PRIVATE_KEY=0xYOUR_WALLET_PRIVATE_KEY
+   ```
+
+2. **Run Deployment Command**:
+   ```bash
+   npx hardhat ignition deploy ./ignition/modules/Presale.ts --network sepolia
+   npx hardhat ignition deploy ./ignition/modules/Staking.ts --network sepolia
+   ```
+
+3. **Update Frontend Configuration**:
+   After deployment, Hardhat will output the new contract addresses. Update the `VITE_` variables in your [`.env`](./.env) to point to the new addresses so the React app can connect to the correct network.
+
+4. **Verify Contracts (Optional)**:
+   ```bash
+   npx hardhat verify --network sepolia <CONTRACT_ADDRESS> <CONSTRUCTOR_ARGUMENTS>
+   ```
+
 ## 🛠️ Tech Stack
 - **Solidity** (^0.8.20)
 - **Hardhat** + **Viem**
