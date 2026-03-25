@@ -1,57 +1,49 @@
-# Sample Hardhat 3 Beta Project (`node:test` and `viem`)
+# VaultX Presale & Staking DApp 🚀
 
-This project showcases a Hardhat 3 Beta project using the native Node.js test runner (`node:test`) and the `viem` library for Ethereum interactions.
+Welcome to the **VaultX** project repository. This is a full-stack Web3 application designed for a token presale and a staking rewards ecosystem.
 
-To learn more about the Hardhat 3 Beta, please visit the [Getting Started guide](https://hardhat.org/docs/getting-started#getting-started-with-hardhat-3). To share your feedback, join our [Hardhat 3 Beta](https://hardhat.org/hardhat3-beta-telegram-group) Telegram group or [open an issue](https://github.com/NomicFoundation/hardhat/issues/new) in our GitHub issue tracker.
+## 📖 Technical Documentation
+If you are reviewing this as part of a **Technical Test**, please refer to the detailed **[DOCUMENTATION.md](./DOCUMENTATION.md)** file. It contains:
+- Smart Contract logic and security.
+- Frontend architecture (BEM + SCSS Modules).
+- Deployment instructions and script usage.
+- Gas optimization and math formulas.
 
-## Project Overview
+## 🚀 Quick Start (Local Ganache)
 
-This example project includes:
-
-- A simple Hardhat configuration file.
-- Foundry-compatible Solidity unit tests.
-- TypeScript integration tests using [`node:test`](nodejs.org/api/test.html), the new Node.js native test runner, and [`viem`](https://viem.sh/).
-- Examples demonstrating how to connect to different types of networks, including locally simulating OP mainnet.
-
-## Usage
-
-### Running Tests
-
-To run all the tests in the project, execute the following command:
-
-```shell
-npx hardhat test
+1. **Install Dependencies**:
+```bash
+npm install
+cd frontend && npm install && cd ..
 ```
 
-You can also selectively run the Solidity or `node:test` tests:
+2. **Setup Environment**:
+Configure your [`.env`](./.env) file (already pre-configured for default Ganache).
 
-```shell
-npx hardhat test solidity
-npx hardhat test nodejs
+3. **Deploy Contracts**:
+```bash
+npx hardhat ignition deploy ./ignition/modules/Presale.ts --network ganache
+npx hardhat ignition deploy ./ignition/modules/Staking.ts --network ganache
 ```
 
-### Make a deployment to Sepolia
-
-This project includes an example Ignition module to deploy the contract. You can deploy this module to a locally simulated chain or to Sepolia.
-
-To run the deployment to a local chain:
-
-```shell
-npx hardhat ignition deploy ignition/modules/Counter.ts
+4. **Prepare Testing Environment**:
+```bash
+npx hardhat run scripts/distribute-tokens.ts --network ganache
+npx hardhat run scripts/activate-round.ts --network ganache
 ```
 
-To run the deployment to Sepolia, you need an account with funds to send the transaction. The provided Hardhat configuration includes a Configuration Variable called `SEPOLIA_PRIVATE_KEY`, which you can use to set the private key of the account you want to use.
-
-You can set the `SEPOLIA_PRIVATE_KEY` variable using the `hardhat-keystore` plugin or by setting it as an environment variable.
-
-To set the `SEPOLIA_PRIVATE_KEY` config variable using `hardhat-keystore`:
-
-```shell
-npx hardhat keystore set SEPOLIA_PRIVATE_KEY
+5. **Run Frontend**:
+```bash
+cd frontend
+npm run dev
 ```
 
-After setting the variable, you can run the deployment with the Sepolia network:
+## 🛠️ Tech Stack
+- **Solidity** (^0.8.20)
+- **Hardhat** + **Viem**
+- **React** + **Vite** + **TypeScript**
+- **SCSS Modules** (BEM Methodology)
+- **Ethers.js v6**
 
-```shell
-npx hardhat ignition deploy --network sepolia ignition/modules/Counter.ts
-```
+---
+Built by VaultX Team.
