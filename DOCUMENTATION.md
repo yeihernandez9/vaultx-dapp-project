@@ -86,4 +86,47 @@ npx hardhat ignition deploy ./ignition/modules/Staking.ts --network ganache
 
 ---
 
-**Built with ❤️ by VaultX Team for Technical Assessment.**
+## 6. Fluxogramas de Procesos (Visual Study Guide) 📊
+
+### A. Ciclo de Vida del Inversor (Preventa)
+```mermaid
+graph TD
+    A[Inicia Preventa] --> B{¿Es Ronda 1 o 2?}
+    B -- Sí --> C[Validar Whitelist Merkle Proof]
+    B -- No --> D[Público Libre]
+    C --> E[Compra VLTX con ETH/BNB]
+    D --> E
+    E --> F[Tokens bloqueados en Vesting]
+    F --> G{¿Pasó el Cliff?}
+    G -- No --> H[Saldo Claimable: 0]
+    G -- Sí --> I[Liberación Lineal segundo a segundo]
+    I --> J[Usuario reclama tokens disponibles]
+```
+
+### B. Ciclo de Vida del Staking (Recompensas)
+```mermaid
+graph TD
+    A[Posee VLTX] --> B[Escoger Tier: 30, 90 o 180 días]
+    B --> C[Bloquear tokens en Contrato]
+    C --> D[Cálculo de recompensas por Cada Bloque]
+    D --> E{¿Retirar ahora?}
+    E -- Sólo Ganancias --> F[Botón Claim: Rewards enviadas / Principal sigue bloqueado]
+    E -- Todo el Dinero --> G{¿Pasó la fecha de Fin?}
+    G -- Sí --> H[Botón Unstake: Recibe Principal + Ganancias]
+    G -- No --> I[Botón Unstake: Penalidad 10% a Tesorería / Recibe neto]
+```
+
+---
+
+## 7. Glosario Técnico (Términos que debes conocer) 📖
+
+*   **Vesting**: Periodo de tiempo en el que los tokens están "bloqueados" y se entregan poco a poco para proteger la salud económica del proyecto.
+*   **Cliff**: Tiempo de espera inicial antes de que el Vesting empiece a entregar tokens. Durante el Cliff, el saldo es 0.
+*   **Merkle Tree/Proof**: Estructura de datos criptográfica que permite validar si alguien está en una lista blanca sin guardar toda la lista en la blockchain.
+*   **Staking**: El acto de bloquear tus criptomonedas para recibir recompensas intereses a cambio de no moverlas.
+*   **Reentrancy**: Un tipo de ataque donde un hacker intenta llamar a una función de contrato muchas veces antes de que se termine la primera llamada. Nosotros usamos `ReentrancyGuard` para evitarlo.
+*   **Multiplicador**: Un factor (como 1.5x o 2.0x) que aumenta tus ganancias proporcionalmente al tiempo que te comprometes a no retirar.
+*   **WAD / precision**: Usar 18 decimales en las matemáticas del contrato para evitar errores de redondeo.
+
+---
+**VaultX - Guía de Estudio Rápida**
